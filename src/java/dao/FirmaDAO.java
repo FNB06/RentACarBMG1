@@ -5,6 +5,12 @@
  */
 package dao;
 
+
+import entity.Firma;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+
 /**
  *
  * @author Tevhid
@@ -13,17 +19,54 @@ class FirmaDAO extends Dao {
 
     @Override
     public void create(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         Firma firma = (Firma) obj;
+        String q = "insert into firma(adi,telefon,email,adres) values (?,?,?,?)";
+        try{
+            PreparedStatement st = getConn().prepareStatement(q);
+            st.setString(1, firma.getAdi());
+            st.setString(2, firma.getTelefon());
+            st.setString(3, firma.getEmail());
+            st.setString(4, firma.getAdres());
+            st.executeUpdate();
+        }
+        catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Override
     public void update(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Firma firma = (Firma) obj;
+        String q = "update firma set adi=?,telefon=?,email=?,adres=? where firmaid = ?";
+        try {
+            PreparedStatement st = getConn().prepareStatement(q);
+            st.setString(1, firma.getAdi());
+            st.setString(2, firma.getTelefon());
+            st.setString(3, firma.getEmail());
+            st.setString(4, firma.getAdres());
+            st.setLong(5, firma.getFirmaid());
+            st.executeUpdate();
+            
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Override
     public void delete(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         Firma firma = (Firma) obj;
+
+        String q = "delete from firma where firmaid = ?";
+        try {
+            PreparedStatement st = this.getConn().prepareStatement(q);
+            st.setLong(1, firma.getFirmaid());
+            st.executeUpdate();
+            
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
     
 }
