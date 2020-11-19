@@ -24,9 +24,7 @@ import javax.inject.Named;
 public class  AracController implements Serializable{
      private List<Arac> clist;
     private AracDAO adao;
-    private FirmaDAO firmaDAO;
     private List<Firma> firmaList;
-    private DocumentDao documentDao;
     private List<Document> dlist;
 
     public AracController() {
@@ -81,13 +79,7 @@ public class  AracController implements Serializable{
         this.adao = adao;
     }
 
-    public FirmaDAO getFirmaDAO() {
-        return firmaDAO;
-    }
-
-    public void setFirmaDAO(FirmaDAO firmaDAO) {
-        this.firmaDAO = firmaDAO;
-    }
+  
 
     public List<Firma> getFirmaList() {
         return firmaList;
@@ -97,13 +89,7 @@ public class  AracController implements Serializable{
         this.firmaList = firmaList;
     }
 
-    public DocumentDao getDocumentDao() {
-        return documentDao;
-    }
-
-    public void setDocumentDao(DocumentDao documentDao) {
-        this.documentDao = documentDao;
-    }
+    
 
     public List<Document> getDlist() {
         return dlist;
