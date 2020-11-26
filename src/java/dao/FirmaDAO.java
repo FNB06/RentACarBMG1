@@ -16,6 +16,9 @@ import java.sql.SQLException;
  * @author Tevhid
  */
 public class FirmaDAO extends Dao {
+    private SehirDAO sehirDAO;
+
+    
 
     @Override
     public void create(Object obj) {
@@ -69,4 +72,13 @@ public class FirmaDAO extends Dao {
         }
     }
     
+    
+    
+    
+    public SehirDAO getSehirDAO() {
+        if(this.sehirDAO == null){
+            sehirDAO = new SehirDAO();
+        }
+        return sehirDAO;
+    }
 }
