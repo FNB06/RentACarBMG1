@@ -15,7 +15,7 @@ import java.sql.SQLException;
  *
  * @author Tevhid
  */
-class FirmaDAO extends Dao {
+public class FirmaDAO extends Dao {
 
     @Override
     public void create(Object obj) {
