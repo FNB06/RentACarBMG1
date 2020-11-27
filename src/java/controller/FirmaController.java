@@ -14,6 +14,8 @@ import java.util.List;
  *
  * @author Tevhid
  */
+@Named
+@SessionScoped
 public class FirmaController implements Serializable {
     private List<Firma> clist;
     private FirmaDAO firmaDAO;
