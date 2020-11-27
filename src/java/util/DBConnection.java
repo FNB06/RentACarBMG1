@@ -26,16 +26,6 @@ public  class  DBConnection {
     }
 
          
-    private Connection connection;
-    public Connection getConnection(){
-        try{
-             Class.forName("org.postgresql.Driver").newInstance();
-            this.connection= DriverManager.getConnection("jdbc:postgresql://localhost:5432/RentACarBMG", "postgres", "4486");
-        }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    return this.connection;
-    } 
+    
     
 }
