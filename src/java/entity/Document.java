@@ -5,12 +5,9 @@
  */
 package entity;
 
+import java.util.Objects;
 
 
-/**
- *
- * @author Tevhid
- */
 public class Document {
 
     private Long id;
@@ -50,6 +47,29 @@ public class Document {
         this.fileType = fileType;
     }
 
-   
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Document other = (Document) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
 
 }
