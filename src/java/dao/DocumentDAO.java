@@ -5,11 +5,80 @@
  */
 package dao;
 
-/**
- *
- * @author Tevhid
- */
-public class DocumentDAO extends Dao{
+import entity.Document;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class DocumentDao extends Dao {
+
+    public List<Document> findAll() {
+        List<Document> dList = new ArrayList<>();
+        try {
+            PreparedStatement pst = this.getConn().prepareStatement("select * from document");
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Document d = new Document();
+                d.setId(rs.getLong("id"));
+                d.setFilePath(rs.getString("filepath"));
+                d.setFileName(rs.getString("filename"));
+                d.setFileType(rs.getString("filetype"));
+                
+                dList.add(d);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return dList;
+    }
+    
+    public void insert(Document d){
+        String query ="insert into document (filepath, filename, filetype) values(?,?,?)"; 
+        try {
+            PreparedStatement pst = this.getConn().prepareStatement(query);
+            pst.setString(1, d.getFilePath());
+            pst.setString(2, d.getFileName());
+            pst.setString(3, d.getFileType());
+            pst.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public Document find(Long id) {
+        Document y = null;
+        String query = ("select * from document where id=" + id);
+        try {
+            PreparedStatement pst = getConn().prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            rs.next();
+
+            y = new Document();
+            y.setId(rs.getLong("id"));
+            y.setFilePath(rs.getString("filepath"));
+            y.setFileName(rs.getString("filename"));
+            y.setFileType(rs.getString("filetype"));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return y;
+
+    }
+    public void sil(Document document) {
+        String query = "delete from document where id=?";
+
+        try {
+            PreparedStatement pst = getConn().prepareStatement(query);
+            pst.setLong(1, document.getId());
+            pst.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     @Override
     public void create(Object obj) {
@@ -25,5 +94,4 @@ public class DocumentDAO extends Dao{
     public void delete(Object obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }
