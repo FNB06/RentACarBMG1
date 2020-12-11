@@ -18,8 +18,8 @@ public class RezervasyonDAO extends Dao {
         int start = (page - 1) * pageSize;
 
         try {
-            PreparedStatement st = getConn().prepareStatement("select * from rezervasyon order by rezervasyonid asc limit " + start + " , " + pageSize);                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
+            PreparedStatement st = getConn().prepareStatement("select * from rezervasyon order by rezervasyonid asc limit " + start + " , " + pageSize);                    
+            ResultSet rs = st.executeQuery(); 
 
             while (rs.next()) {
                 Rezervasyon tmp;
@@ -28,7 +28,7 @@ public class RezervasyonDAO extends Dao {
 
                 tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
                 tmp.setKullanici(this.getKullaniciDAO().find(rs.getLong("kullaniciid")));
-                clist.add(tmp);//Her yeni rezervasyoni listeme ekliyorum
+                clist.add(tmp);
 
             }
 
@@ -122,8 +122,8 @@ public class RezervasyonDAO extends Dao {
         List<Rezervasyon> clist = new ArrayList();
 
         try {
-             PreparedStatement st = this.getConn().prepareStatement("select * from rezervasyon");                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
+             PreparedStatement st = this.getConn().prepareStatement("select * from rezervasyon");                    
+            ResultSet rs = st.executeQuery(); 
 
             while (rs.next()) {
                 Rezervasyon tmp;
@@ -132,8 +132,7 @@ public class RezervasyonDAO extends Dao {
 
                 tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
                 tmp.setKullanici(this.getKullaniciDAO().find(rs.getLong("kullaniciid")));
-                clist.add(tmp);//Her yeni rezervasyoni listeme ekliyorum
-
+                clist.add(tmp);
             }
 
         } catch (SQLException ex) {
