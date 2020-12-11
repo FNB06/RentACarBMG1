@@ -98,7 +98,31 @@ public class Firma {
         return "Firma{" + "firmaid=" + firmaid + ", adi=" + adi + ", telefon=" + telefon + ", email=" + email + ", adres=" + adres + ", sehir_id=" + sehir_id + '}';
     }
 
-    
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 83 * hash + Objects.hashCode(this.firmaid);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Firma other = (Firma) obj;
+        if (!Objects.equals(this.firmaid, other.firmaid)) {
+            return false;
+        }
+        return true;
+    }
+
    
     
     
