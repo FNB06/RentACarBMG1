@@ -5,12 +5,11 @@
  */
 package entity;
 
-/**
- *
- * @author Tevhid
- */
+import java.util.Objects;
+
+
 public class Sehir {
-     private Long Sehir_id;
+    private Long Sehir_id;
     private String adi;
 
     public Sehir() {
@@ -29,6 +28,8 @@ public class Sehir {
         this.Sehir_id = Sehir_id;
     }
 
+    
+
     public String getAdi() {
         return adi;
     }
@@ -40,6 +41,31 @@ public class Sehir {
     @Override
     public String toString() {
         return "Sehir{" + "Sehir_id=" + Sehir_id + ", adi=" + adi + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.Sehir_id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Sehir other = (Sehir) obj;
+        if (!Objects.equals(this.Sehir_id, other.Sehir_id)) {
+            return false;
+        }
+        return true;
     }
     
     
