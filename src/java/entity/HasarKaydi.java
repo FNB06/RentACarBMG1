@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entity;
 
-/**
- *
- * @author Tevhid
- */
+import java.util.List;
+import java.util.Objects;
+
+
 public class HasarKaydi {
-     private Long hasarid;
+    private Long hasarid;
     private String boya;
     private String cizik;
     private String degisim;
@@ -20,14 +15,14 @@ public class HasarKaydi {
     public HasarKaydi() {
     }
 
-    public HasarKaydi(Long hasarid, String boya, String cizik, String degisim, String aciklama, Arac arac) {
+    public HasarKaydi(Long hasarid, String boya, String cizik, String degisim, String aciklama) {
         this.hasarid = hasarid;
         this.boya = boya;
         this.cizik = cizik;
         this.degisim = degisim;
         this.aciklama = aciklama;
-        this.arac = arac;
     }
+
 
     public Long getHasarid() {
         return hasarid;
@@ -36,6 +31,7 @@ public class HasarKaydi {
     public void setHasarid(Long hasarid) {
         this.hasarid = hasarid;
     }
+
 
     public String getBoya() {
         return boya;
@@ -67,6 +63,7 @@ public class HasarKaydi {
 
     public void setAciklama(String aciklama) {
         this.aciklama = aciklama;
+        
     }
 
     public Arac getArac() {
@@ -76,11 +73,15 @@ public class HasarKaydi {
     public void setArac(Arac arac) {
         this.arac = arac;
     }
-
+  
+    
     @Override
     public String toString() {
         return "HasarKaydi{" + "hasarid=" + hasarid + ", boya=" + boya + ", cizik=" + cizik + ", degisim=" + degisim + ", aciklama=" + aciklama + ", arac=" + arac + '}';
     }
-
     
+
+
 }
+
+
