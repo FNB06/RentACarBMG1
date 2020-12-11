@@ -16,8 +16,8 @@ public class YorumDAO extends Dao {
         List<Yorum> clist = new ArrayList();
         int start = (page - 1) * pageSize;
         try {
-            PreparedStatement st = getConn().prepareStatement("select * from yorum order by yorumid asc limit " + start + " , " + pageSize);                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
+            PreparedStatement st = getConn().prepareStatement("select * from yorum order by yorumid asc limit " + start + " , " + pageSize);                    
+            ResultSet rs = st.executeQuery(); 
 
             while (rs.next()) {
                 Yorum tmp;
@@ -25,7 +25,7 @@ public class YorumDAO extends Dao {
 
                 tmp.setKullanici(this.getKullaniciDAO().find(rs.getLong("kullaniciid")));
                 tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
-                clist.add(tmp);//Her yeni yorumi listeme ekliyorum
+                clist.add(tmp);
 
             }
 
@@ -116,8 +116,8 @@ public class YorumDAO extends Dao {
         List<Yorum> clist = new ArrayList();
         
         try {
-            PreparedStatement st = getConn().prepareStatement("select * from yorum");                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
+            PreparedStatement st = getConn().prepareStatement("select * from yorum");                    
+            ResultSet rs = st.executeQuery(); 
 
             while (rs.next()) {
                 Yorum tmp;
@@ -125,7 +125,7 @@ public class YorumDAO extends Dao {
 
                 tmp.setKullanici(this.getKullaniciDAO().find(rs.getLong("kullaniciid")));
                 tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
-                clist.add(tmp);//Her yeni yorumi listeme ekliyorum
+                clist.add(tmp);
 
             }
 
