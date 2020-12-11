@@ -1,24 +1,56 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import entity.HasarKaydi;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- *
- * @author Tevhid
- */
 public class HasarKaydiDAO extends Dao {
-     private AracDAO aracDAO;
+
+    private AracDAO aracDAO;
+
+    public List read(int page, int pageSize) {
+        List<HasarKaydi> clist = new ArrayList();
+        int start = (page - 1) * pageSize;
+        try {
+            PreparedStatement st = getConn().prepareStatement("select * from hasarkaydi order by hasarid asc limit " + start + " , " + pageSize);                   
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                HasarKaydi tmp;
+                tmp = new HasarKaydi(rs.getLong("hasarid"), rs.getString("boya"), rs.getString("cizik"), rs.getString("degisim"), rs.getString("aciklama"));
+
+                tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
+                clist.add(tmp);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return clist;
+    }
+
+    public int count() {
+        int count = 0;
+
+        try {
+            PreparedStatement st = getConn().prepareStatement("select count(hasarid) as hasarkaydi_count from hasarkaydi");
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            count = rs.getInt("hasarkaydi_count");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return count;
+    }
 
     @Override
     public void create(Object obj) {
-         HasarKaydi hasarKaydi = (HasarKaydi) obj;
+        HasarKaydi hasarKaydi = (HasarKaydi) obj;
         String q = "insert into hasarkaydi(aracid,boya,cizik,degisim,aciklama) values (?,?,?,?,?)";
         try {
             PreparedStatement st = getConn().prepareStatement(q);
@@ -28,6 +60,20 @@ public class HasarKaydiDAO extends Dao {
             st.setString(4, hasarKaydi.getDegisim());
             st.setString(5, hasarKaydi.getAciklama());
 
+            st.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void delete(Object obj) {
+        HasarKaydi hasarKaydi = (HasarKaydi) obj;
+        String q = "delete from hasarkaydi where hasarid = ?";
+        try {
+            PreparedStatement st = getConn().prepareStatement(q);
+            st.setLong(1, hasarKaydi.getHasarid());
             st.executeUpdate();
 
         } catch (SQLException ex) {
@@ -52,26 +98,35 @@ public class HasarKaydiDAO extends Dao {
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-        }    }
-
-    @Override
-    public void delete(Object obj) {
-        HasarKaydi hasarKaydi = (HasarKaydi) obj;
-        String q = "delete from hasarkaydi where hasarid = ?";
-        try {
-            PreparedStatement st = getConn().prepareStatement(q);
-            st.setLong(1, hasarKaydi.getHasarid());
-            st.executeUpdate();
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }    }
+        }
+    }
 
     public AracDAO getAracDAO() {
-         if (aracDAO == null) {
+        if (aracDAO == null) {
             aracDAO = new AracDAO();
         }
         return aracDAO;
     }
-    
+
+    public List read() {
+        List<HasarKaydi> clist = new ArrayList();
+
+        try {
+            PreparedStatement st = getConn().prepareStatement("select * from hasarkaydi");                   
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                HasarKaydi tmp;
+                tmp = new HasarKaydi(rs.getLong("hasarid"), rs.getString("boya"), rs.getString("cizik"), rs.getString("degisim"), rs.getString("aciklama"));
+
+                tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
+                clist.add(tmp);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return clist;
+    }
 }
