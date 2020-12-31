@@ -12,10 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-/**
- *
- * @author Barsan
- */
+
 @FacesConverter("FirmaConverter")
 public class FirmaConverter implements Converter{
 
